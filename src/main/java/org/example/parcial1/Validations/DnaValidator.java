@@ -3,56 +3,57 @@ package org.example.parcial1.Validations;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class DnaValidator implements ConstraintValidator<ValidDna, String[]> {
+import java.util.Arrays;
 
-    // Caracteres válidos del ADN
-    private static final String VALID_CHARACTERS = "AGTC";
+public class DnaValidator implements ConstraintValidator<ValidDna, String[]> {
 
     @Override
     public boolean isValid(String[] dna, ConstraintValidatorContext context) {
 
-        // 1. Verificar si el array es null
-        if (dna == null) {
+        if (dna == null || dna.length == 0) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("El array no puede ser null").addConstraintViolation();
+            context.buildConstraintViolationWithTemplate("El array no puede ser nulo o vacio.")
+                    .addConstraintViolation();
             return false;
         }
 
-        // 2. Verificar si el array está vacío
-        if (dna.length == 0) {
+        // Validar si el array es NxN (cuadrado)
+        int size = dna.length;
+        if (!Arrays.stream(dna).allMatch(row -> row.length() == size)) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("El array no puede estar vacío").addConstraintViolation();
+            context.buildConstraintViolationWithTemplate("El array debe ser NxN.")
+                    .addConstraintViolation();
             return false;
         }
 
-        int n = dna.length;
-
-        // 3. Verificar si el array es NxM en vez de NxN
-        for (String row : dna) {
-            if (row == null) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("El array no puede contener filas null").addConstraintViolation();
-                return false;
-            }
-
-            if (row.length() != n) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("El array debe ser NxN, pero se encontró una fila de tamaño incorrecto").addConstraintViolation();
-                return false;
-            }
+        // Validar que no contenga números
+        if (Arrays.stream(dna).anyMatch(row -> row.matches(".*\\d+.*"))) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("El array no debe contener numeros.")
+                    .addConstraintViolation();
+            return false;
         }
 
-        // 4. Verificar si contiene caracteres inválidos (números o letras no válidas)
-        for (String row : dna) {
-            for (char c : row.toCharArray()) {
-                if (!VALID_CHARACTERS.contains(Character.toString(c))) {
-                    context.disableDefaultConstraintViolation();
-                    context.buildConstraintViolationWithTemplate("El array contiene caracteres inválidos. Solo se permiten: " + VALID_CHARACTERS).addConstraintViolation();
-                    return false;
-                }
-            }
+        // Validar que contenga solo A, T, G, C
+        if (!Arrays.stream(dna).allMatch(row -> row.matches("[ATGC]+"))) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("Solo debe haber caracteres: 'A', 'T', 'G', 'C'.")
+                    .addConstraintViolation();
+            return false;
         }
 
+        // Validar que no sea homogéneo (todo el array igual)
+        char firstChar = dna[0].charAt(0);
+        boolean isHomogeneous = Arrays.stream(dna)
+                .allMatch(row -> row.chars().allMatch(ch -> ch == firstChar));
+        if (isHomogeneous) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("El array no puede ser homogeneo (todas las letras iguales).")
+                    .addConstraintViolation();
+            return false;
+        }
+
+        // Si pasa todas las validaciones, es válido
         return true;
     }
 }

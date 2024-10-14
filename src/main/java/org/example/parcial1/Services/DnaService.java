@@ -16,6 +16,17 @@ public class DnaService {
     private DnaRepository dnaRepository;
 
     public boolean isMutant(String[] dna) {
+        if (dna == null || dna.length == 0) {
+            throw new IllegalArgumentException("DNA no puede recibir una lista vacia");
+        }
+
+        if (!isValidDna(dna)) {
+            throw new IllegalArgumentException("DNA solo puede recibir estas letras A, T, G y C");
+        }
+
+        if (!isSquareMatrix(dna)) {
+            throw new IllegalArgumentException("DNA solo puede recibir un array de NxN");
+        }
 
         int sequenceCount = 0;
         int size = dna.length;
@@ -25,6 +36,16 @@ public class DnaService {
         sequenceCount += checkAllDiagonals(dna, size);
 
         return sequenceCount > 1;
+    }
+
+    private boolean isSquareMatrix(String[] dna) {
+        int size = dna.length;
+        return Arrays.stream(dna).allMatch(row -> row.length() == size);
+    }
+
+    private boolean isValidDna(String[] dna) {
+        return IntStream.range(0, dna.length)
+                .allMatch(i -> dna[i].matches("[ATGC]+")); // Verificar que cada fila contenga solo A, T, G, C
     }
 
 
@@ -97,7 +118,7 @@ public class DnaService {
         Optional<Dna> existingDna = dnaRepository.findByDna(dnaSequence);
 
         if (existingDna.isPresent()) {
-            return existingDna.get().isMutant();  // Retorna el registro existente
+            return existingDna.get().isMutant();
         }
 
         boolean isMutant = isMutant(dna);
