@@ -18,7 +18,7 @@ public class StatsService {
         this.dnaRepository = dnaRepository;
     }
 
-    // Método que obtiene las estadísticas de ADN mutante y humano.
+    // Metodo que obtiene las estadísticas de ADN mutante y humano.
     public StatsResponse getStats() {
         // Contar el número de secuencias de ADN mutante.
         long countMutantDna = dnaRepository.countByIsMutant(true);

@@ -19,7 +19,7 @@ public class StatsController {
         this.statsServices = statsServices;
     }
 
-    // Método que maneja las solicitudes GET a la URL "/stats".
+    // Metodo que maneja las solicitudes GET a la URL "/stats".
     @GetMapping
     public StatsResponse getStats() {
         // Llama al servicio para obtener las estadísticas y devuelve la respuesta.

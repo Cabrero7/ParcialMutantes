@@ -12,7 +12,7 @@ public class DnaResponse {
     // Campo que indica si el ADN es mutante.
     private boolean isMutant;
 
-    // Método getter para el campo isMutant.
+    // Metodo getter para el campo isMutant.
     public boolean isMutant() {
         return isMutant;
     }

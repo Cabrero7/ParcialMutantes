@@ -9,9 +9,9 @@ import java.util.Optional;
 @Repository
 public interface DnaRepository extends JpaRepository<Dna, Long> {
 
-    // Método que busca una entidad Dna por su campo dna.
+    // Metodo que busca una entidad Dna por su campo dna.
     Optional<Dna> findByDna(String dna);
 
-    // Método que cuenta el número de entidades Dna que tienen el campo isMutant igual al valor especificado.
+    // Metodo que cuenta el número de entidades Dna que tienen el campo isMutant igual al valor especificado.
     long countByIsMutant(Boolean isMutant);
 }
