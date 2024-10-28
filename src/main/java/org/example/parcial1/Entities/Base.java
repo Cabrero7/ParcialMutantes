@@ -16,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Base implements Serializable {
+public abstract class Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

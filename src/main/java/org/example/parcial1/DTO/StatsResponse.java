@@ -16,6 +16,7 @@ public class StatsResponse {
     @JsonProperty("count_human_dna")
     private long countHumanDna;
 
+    // Campo que representa la proporción de ADN mutante a ADN humano.
     private double ratio;
 
 }

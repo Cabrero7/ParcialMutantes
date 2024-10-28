@@ -14,8 +14,10 @@ import java.io.Serializable;
 @SuperBuilder
 public class Dna extends Base implements Serializable {
 
+    // Campo que representa la secuencia de ADN.
     private String dna;
 
+    // Campo que indica si el ADN es mutante.
     private boolean isMutant;
 
 }

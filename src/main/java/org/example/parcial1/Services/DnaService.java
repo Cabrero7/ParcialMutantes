@@ -12,9 +12,11 @@ import java.util.stream.IntStream;
 @Service
 public class DnaService {
 
+    // Inyección de dependencia del repositorio DnaRepository.
     @Autowired
     private DnaRepository dnaRepository;
 
+    // Método que determina si una secuencia de ADN es mutante.
     public boolean isMutant(String[] dna) {
         if (dna == null || dna.length == 0) {
             throw new IllegalArgumentException("DNA no puede recibir una lista vacia");
@@ -38,24 +40,27 @@ public class DnaService {
         return sequenceCount > 1;
     }
 
+    // Método que verifica si la matriz de ADN es cuadrada.
     private boolean isSquareMatrix(String[] dna) {
         int size = dna.length;
         return Arrays.stream(dna).allMatch(row -> row.length() == size);
     }
 
+    // Método que verifica si la secuencia de ADN contiene solo las letras A, T, G, C.
     private boolean isValidDna(String[] dna) {
         return IntStream.range(0, dna.length)
                 .allMatch(i -> dna[i].matches("[ATGC]+")); // Verificar que cada fila contenga solo A, T, G, C
     }
 
-
-    private int checkAllHorizontal(String[] dna,int size) {
+    // Método que verifica secuencias horizontales en la matriz de ADN.
+    private int checkAllHorizontal(String[] dna, int size) {
         return IntStream.range(0, size)
                 .map(i -> checkSequence(dna[i]))
                 .sum();
     }
 
-    private int checkAllVertical(String[] dna,int size) {
+    // Método que verifica secuencias verticales en la matriz de ADN.
+    private int checkAllVertical(String[] dna, int size) {
         return IntStream.range(0, size)
                 .map(j -> {
                     StringBuilder column = new StringBuilder();
@@ -66,7 +71,8 @@ public class DnaService {
                 .sum();
     }
 
-    private int checkAllDiagonals(String[] dna,int size) {
+    // Método que verifica secuencias diagonales en la matriz de ADN.
+    private int checkAllDiagonals(String[] dna, int size) {
 
         int leftToRightDiagonals = IntStream.range(0, size)
                 .map(i -> {
@@ -91,6 +97,7 @@ public class DnaService {
         return leftToRightDiagonals + rightToLeftDiagonals;
     }
 
+    // Método que verifica si una secuencia contiene una racha de 4 caracteres iguales.
     private int checkSequence(String sequence) {
         int count = 0;
         char currentChar = sequence.charAt(0);
@@ -112,6 +119,7 @@ public class DnaService {
         return count;
     }
 
+    // Método que guarda una secuencia de ADN y determina si es mutante.
     public boolean saveDna(String[] dna) {
         String dnaSequence = String.join(",", dna);
 

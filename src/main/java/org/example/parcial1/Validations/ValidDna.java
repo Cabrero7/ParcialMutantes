@@ -12,7 +12,13 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDna {
+
+    // Mensaje de error predeterminado si la validación falla.
     String message() default "Secuencia de ADN inválida";
+
+    // Grupos de validación, por defecto no se especifica ninguno.
     Class<?>[] groups() default {};
+
+    // Carga útil de validación, por defecto no se especifica ninguna.
     Class<? extends Payload>[] payload() default {};
 }

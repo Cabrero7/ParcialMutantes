@@ -22,11 +22,17 @@ public class DnaController {
 
     @PostMapping("")
     public ResponseEntity<?> isMutant(@RequestBody DnaRequest dnaRequest) {
+        // Llama al servicio para guardar el ADN y determinar si es mutante.
         boolean isMutant = dnaService.saveDna(dnaRequest.getDna());
+
+        // Crea una respuesta DnaResponse con el resultado.
         DnaResponse dnaResponse = new DnaResponse(isMutant);
+
+        // Si el ADN es mutante, devuelve una respuesta con el estado HTTP OK.
         if (isMutant) {
             return new ResponseEntity<>("Mutant detected", HttpStatus.OK);
         } else {
+            // Si el ADN no es mutante, devuelve una respuesta con el estado HTTP FORBIDDEN.
             return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
         }
     }
