@@ -12,22 +12,16 @@ import java.util.stream.IntStream;
 @Service
 public class DnaService {
 
-    // Inyección de dependencia del repositorio DnaRepository.
+    //Inyección de dependencia del repositorio DnaRepository.
     @Autowired
     private DnaRepository dnaRepository;
 
     // Metodo que determina si una secuencia de ADN es mutante.
     public boolean isMutant(String[] dna) {
-        if (dna == null || dna.length == 0) {
-            throw new IllegalArgumentException("DNA no puede recibir una lista vacia");
-        }
 
+        // Validar que el ADN solo contenga A, T, G, C
         if (!isValidDna(dna)) {
-            throw new IllegalArgumentException("DNA solo puede recibir estas letras A, T, G y C");
-        }
-
-        if (!cuadradaMatriz(dna)) {
-            throw new IllegalArgumentException("DNA solo puede recibir un array de NxN");
+            throw new IllegalArgumentException("DNA must only contain the characters A, T, G, C.");
         }
 
         int sequenceCount = 0;
