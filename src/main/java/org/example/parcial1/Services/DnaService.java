@@ -19,11 +19,6 @@ public class DnaService {
     // Metodo que determina si una secuencia de ADN es mutante.
     public boolean isMutant(String[] dna) {
 
-        // Validar que el ADN solo contenga A, T, G, C
-        if (!isValidDna(dna)) {
-            throw new IllegalArgumentException("DNA must only contain the characters A, T, G, C.");
-        }
-
         int sequenceCount = 0;
         int size = dna.length;
 
@@ -32,18 +27,7 @@ public class DnaService {
         sequenceCount += checkAllDiagonals(dna, size);
 
         return sequenceCount > 1;
-    }
 
-    // Metodo que verifica si la matriz de ADN es cuadrada.
-    private boolean cuadradaMatriz(String[] dna) {
-        int size = dna.length;
-        return Arrays.stream(dna).allMatch(row -> row.length() == size);
-    }
-
-    // Metodo que verifica si la secuencia de ADN contiene solo las letras A, T, G, C.
-    private boolean isValidDna(String[] dna) {
-        return IntStream.range(0, dna.length)
-                .allMatch(i -> dna[i].matches("[ATGC]+")); // Verificar que cada fila contenga solo A, T, G, C
     }
 
     // Metodo que verifica secuencias horizontales en la matriz de ADN.

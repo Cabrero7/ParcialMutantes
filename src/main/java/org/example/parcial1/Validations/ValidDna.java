@@ -21,4 +21,5 @@ public @interface ValidDna {
 
     // Carga útil de validación, por defecto no se especifica ninguna.
     Class<? extends Payload>[] payload() default {};
+
 }

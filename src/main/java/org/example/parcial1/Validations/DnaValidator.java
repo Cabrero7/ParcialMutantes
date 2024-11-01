@@ -3,7 +3,6 @@ package org.example.parcial1.Validations;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import java.util.Arrays;
 
 // Clase que implementa la interfaz ConstraintValidator para validar la anotación ValidDna.
 public class DnaValidator implements ConstraintValidator<ValidDna, String[]> {
@@ -40,7 +39,7 @@ public class DnaValidator implements ConstraintValidator<ValidDna, String[]> {
 
             if (row.length() != n) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("El array debe ser NxN, pero se encontró una fila de tamaño incorrecto").addConstraintViolation();
+                context.buildConstraintViolationWithTemplate("El array debe ser NxN").addConstraintViolation();
                 return false;
             }
         }

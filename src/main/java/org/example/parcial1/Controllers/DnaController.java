@@ -1,5 +1,6 @@
 package org.example.parcial1.Controllers;
 
+import jakarta.validation.Valid;
 import org.example.parcial1.DTO.DnaRequest;
 import org.example.parcial1.DTO.DnaResponse;
 import org.example.parcial1.Services.StatsService;
@@ -21,7 +22,7 @@ public class DnaController {
     private StatsService statsServices;
 
     @PostMapping("")
-    public ResponseEntity<?> isMutant(@RequestBody DnaRequest dnaRequest) {
+    public ResponseEntity<?> isMutant(@RequestBody @Valid DnaRequest dnaRequest) {
         // Llama al servicio para guardar el ADN y determinar si es mutante.
         boolean isMutant = dnaService.saveDna(dnaRequest.getDna());
 
