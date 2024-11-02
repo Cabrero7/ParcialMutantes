@@ -13,9 +13,9 @@ letras repetidas (A, T, C, G) en horizontal, vertical u oblicuo, en más de una 
 - Detección de Mutantes: Al enviar una secuencia de ADN a través de una petición POST, el sistema evaluará si se cumplen las condiciones 
 para clasificar la secuencia como mutante. Si es así, devolverá un mensaje de "Mutant Detected" y registrará la detección en el sistema.
 - Estadísticas: A través de una petición GET, el sistema proporciona estadísticas sobre las detecciones realizadas, incluyendo:
--- Total de mutantes detectados.
--- Total de humanos detectados.
--- Un ratio que representa la proporción de mutantes sobre humanos.
+  - Total de mutantes detectados.
+  - Total de humanos detectados.
+  - Un ratio que representa la proporción de mutantes sobre humanos.
 
 ## Uso del Postman con Render
 
