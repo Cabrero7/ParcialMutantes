@@ -1,6 +1,6 @@
 # Mutant Detector
 
-Este es mi proyecto para el primer parcial de Desarrollo, este sirve para detectar si una cadena es un humano o un mutante
+Este es mi proyecto para el primer parcial de Desarrollo
 
 ## Descripcion del proyecto
 
@@ -19,10 +19,33 @@ para clasificar la secuencia como mutante. Si es así, devolverá un mensaje de 
 
 ## Uso del Postman con Render
 
-Para interactuar con la aplicación a través de Postman, utiliza el siguiente enlace: Mutant Detector en Render.
--Si le agregamos "/mutant" y sumamos la secuencia podremos enviar una secuencia y verificar si es humano o mutante
--En cambio si escribimos "/stats" le haremos un get y nos devolvera las cantidades y el ratio
+Para interactuar con la aplicación a través de Postman, utiliza el siguiente enlace: https://parcialmutantes-sque.onrender.com
+1. Para enviar una secuencia de ADN:
+   - Realiza una petición POST a https://parcialmutantes-sque.onrender.com/mutant con la secuencia en formato JSON.
+2. Para obtener estadísticas:
+   - Realiza una petición GET a https://parcialmutantes-sque.onrender.com/stats para visualizar la cantidad de mutantes y humanos, así como el ratio.
 
 ## Uso del Postman en local
 
-Ahora pondremos el siguiente link en Postman (http://localhost:8080) y haremos lo mismo que usando render pero esta vez lo estariamos pasando a un archivo local 
+Si prefieres ejecutar la aplicación de forma local, puedes utilizar el siguiente enlace en Postman: http://localhost:8080.
+1. Para enviar una secuencia de ADN:
+   - Realiza una petición POST a https://parcialmutantes-sque.onrender.com/mutant con la secuencia en formato JSON.
+2. Para obtener estadísticas:
+   - Realiza una petición GET a https://parcialmutantes-sque.onrender.com/stats para visualizar la cantidad de mutantes y humanos, así como el ratio.
+  
+## Ejemplo de Secuencia
+- Aquí tienes un ejemplo de cómo estructurar la secuencia de ADN en formato JSON:
+
+```json
+{
+  "dna": ["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"]
+}
+```
+
+## Tecnologias
+
+- Java junto a Spring Boot: Utilizados para desarrollar la lógica del negocio y gestionar las solicitudes HTTP.
+- H2: Una base de datos en memoria que permite almacenar de forma temporal las secuencias de ADN y los datos estadísticos.
+- Postman: Herramienta utilizada para realizar pruebas de los endpoints de la API.
+- Gradle: Sistema de construcción que se encarga de gestionar las dependencias del proyecto.
+- IntelliJ IDEA: Un entorno de desarrollo integrado (IDE) que facilita la programación y gestión del proyecto.
