@@ -19,7 +19,7 @@ para clasificar la secuencia como mutante. Si es así, devolverá un mensaje de 
 
 ## Uso del Postman con Render
 
-Para interactuar con la aplicación a través de Postman, utiliza el siguiente enlace: [Mutant Detector en Render.]https://parcialmutantes-sque.onrender.com)
+Para interactuar con la aplicación a través de Postman, utiliza el siguiente enlace: Mutant Detector en Render.
 -Si le agregamos "/mutant" y sumamos la secuencia podremos enviar una secuencia y verificar si es humano o mutante
 -En cambio si escribimos "/stats" le haremos un get y nos devolvera las cantidades y el ratio
 
