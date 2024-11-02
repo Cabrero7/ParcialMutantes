@@ -14,4 +14,5 @@ public interface DnaRepository extends JpaRepository<Dna, Long> {
 
     // Metodo que cuenta el número de entidades Dna que tienen el campo isMutant igual al valor especificado.
     long countByIsMutant(Boolean isMutant);
+
 }

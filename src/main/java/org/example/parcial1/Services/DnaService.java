@@ -5,7 +5,6 @@ import org.example.parcial1.Repositories.DnaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -16,63 +15,70 @@ public class DnaService {
     @Autowired
     private DnaRepository dnaRepository;
 
-    // Metodo que determina si una secuencia de ADN es mutante.
     public boolean isMutant(String[] dna) {
 
-        int sequenceCount = 0;
+        int sequenceCount = 0; // Contador de secuencias encontradas
         int size = dna.length;
 
-        sequenceCount += checkAllHorizontal(dna, size);
-        sequenceCount += checkAllVertical(dna, size);
-        sequenceCount += checkAllDiagonals(dna, size);
+        // Verificar horizontal, vertical y diagonal usando métodos separados
+        sequenceCount += checkAllHorizontal(dna,size);
+        sequenceCount += checkAllVertical(dna,size);
+        sequenceCount += checkAllDiagonals(dna,size);
 
+        // Es mutante si encuentra más de una secuencia
         return sequenceCount > 1;
-
     }
 
-    // Metodo que verifica secuencias horizontales en la matriz de ADN.
+    //Chequea Diagonales de izquierda a derecha
     private int checkAllHorizontal(String[] dna, int size) {
-        return IntStream.range(0, size)
-                .map(i -> checkSequence(dna[i]))
-                .sum();
+        int count = 0;
+        for (int i = 0; i < size; i++) {
+            count += checkSequence(dna[i]);
+        }
+        return count;
     }
 
-    // Metodo que verifica secuencias verticales en la matriz de ADN.
+    //Chequea Verticales
     private int checkAllVertical(String[] dna, int size) {
-        return IntStream.range(0, size)
-                .map(j -> {
-                    StringBuilder column = new StringBuilder();
-                    IntStream.range(0, dna.length)
-                            .forEach(i -> column.append(dna[i].charAt(j)));
-                    return checkSequence(column.toString());
-                })
-                .sum();
+        int count = 0;
+        for (int j = 0; j < size; j++) {
+            StringBuilder column = new StringBuilder();
+            for (int i = 0; i < size; i++) {
+                column.append(dna[i].charAt(j));
+            }
+            count += checkSequence(column.toString());
+        }
+        return count;
     }
 
-    // Metodo que verifica secuencias diagonales en la matriz de ADN.
     private int checkAllDiagonals(String[] dna, int size) {
+        int count = 0;
 
-        int leftToRightDiagonals = IntStream.range(0, size)
-                .map(i -> {
-                    StringBuilder diagonal = new StringBuilder();
-                    IntStream.range(0, i + 1)
-                            .filter(j -> i - j < size)
-                            .forEach(j -> diagonal.append(dna[i - j].charAt(j)));
-                    return checkSequence(diagonal.toString());
-                })
-                .sum();
+        // Diagonales de izquierda a derecha (↘)
+        for (int start = 0; start < size * 2 - 1; start++) {
+            StringBuilder diagonal = new StringBuilder();
+            for (int row = 0; row <= start; row++) {
+                int col = start - row;
+                if (row < size && col < size) {
+                    diagonal.append(dna[row].charAt(col));
+                }
+            }
+            count += checkSequence(diagonal.toString());
+        }
 
-        int rightToLeftDiagonals = IntStream.range(0, size)
-                .map(i -> {
-                    StringBuilder diagonal = new StringBuilder();
-                    IntStream.range(0, i + 1)
-                            .filter(j -> i - j < size)
-                            .forEach(j -> diagonal.append(dna[i - j].charAt(size - 1 - j)));
-                    return checkSequence(diagonal.toString());
-                })
-                .sum();
+        // Diagonales de derecha a izquierda (↙)
+        for (int start = 1 - size; start < size; start++) {
+            StringBuilder diagonal = new StringBuilder();
+            for (int row = 0; row < size; row++) {
+                int col = row - start;
+                if (col >= 0 && col < size) {
+                    diagonal.append(dna[row].charAt(col));
+                }
+            }
+            count += checkSequence(diagonal.toString());
+        }
 
-        return leftToRightDiagonals + rightToLeftDiagonals;
+        return count;
     }
 
     // Metodo que verifica si una secuencia contiene una racha de 4 caracteres iguales.

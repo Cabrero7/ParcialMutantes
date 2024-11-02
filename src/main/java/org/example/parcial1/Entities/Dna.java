@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class Dna extends Base implements Serializable {
 
     // Campo que representa la secuencia de ADN.
+    @Column(name = "DNA")
     private String dna;
 
     // Campo que indica si el ADN es mutante.
